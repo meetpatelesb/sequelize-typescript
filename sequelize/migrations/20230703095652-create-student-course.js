@@ -13,10 +13,7 @@ module.exports = {
             type: Sequelize.INTEGER,
           },
 
-          //          courseId: number;
-          // studentId: number;
-
-          courseId: { 
+          courseId: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
@@ -38,6 +35,9 @@ module.exports = {
           },
           updatedAt: {
             allowNull: false,
+            type: Sequelize.DATE,
+          },
+          deletedAt: {
             type: Sequelize.DATE,
           },
         },

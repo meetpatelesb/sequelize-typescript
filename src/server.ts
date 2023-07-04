@@ -9,6 +9,8 @@ app.use(bodyparser.urlencoded({ extended: false }));
 import student from "./routes/student.route";
 import teacher from "./routes/teacher.route";
 import course from "./routes/course.route";
+import classes from "./routes/class.route";
+import reportcard from "./routes/reportcard.route";
 import db from "./models";
 const route = express.Router();
 
@@ -20,6 +22,8 @@ const main = async () => {
   app.use("/students", student);
   app.use("/teacher", teacher);
   app.use("/course", course);
+  app.use("/class",classes);
+    app.use("/reportcard", reportcard);
 };
 
 main();

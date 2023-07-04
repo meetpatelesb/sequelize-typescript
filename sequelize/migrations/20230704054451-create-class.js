@@ -4,7 +4,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.sequelize.transaction(async (t) => {
       await queryInterface.createTable(
-        "Courses",
+        "Classes",
         {
           id: {
             allowNull: false,
@@ -15,8 +15,13 @@ module.exports = {
           name: {
             type: Sequelize.STRING,
           },
-          duration: {
-            type: Sequelize.STRING,
+          studentId: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: {
+              model: "Students",
+              key: "id",
+            },
           },
           createdAt: {
             allowNull: false,
@@ -26,9 +31,7 @@ module.exports = {
             allowNull: false,
             type: Sequelize.DATE,
           },
-          deletedAt: {
-                        type: Sequelize.DATE,
-          },
+          deletedAt: { type: Sequelize.DATE },
         },
         { transaction: t }
       );
@@ -36,7 +39,7 @@ module.exports = {
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.sequelize.transaction(async (t) => {
-      await queryInterface.dropTable("Courses", { transaction: t });
+      await queryInterface.dropTable("Classes", { transaction: t });
     });
   },
 };

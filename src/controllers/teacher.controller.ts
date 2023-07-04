@@ -10,7 +10,7 @@ console.log(Teacher);
 
 export const TeacherDetails = async (req: Request, res: Response): Promise<any> => {
   try {
-    const data = await Teacher.create(req.body);
+    const data = await Teacher.bulkCreate(req.body);
     res.send(data);
     console.log(data);
   } catch (error) {

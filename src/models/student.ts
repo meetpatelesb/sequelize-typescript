@@ -5,8 +5,20 @@ import {
   studentCreationinterface,
 } from "@/interfaces/student.interface";
 
-import { Column,CreatedAt,DeletedAt,Model,Table,UpdatedAt } from "sequelize-typescript";
-
+import {
+  BelongsToMany,
+  Column,
+  CreatedAt,
+  DeletedAt,
+  HasOne,
+  Model,
+  Table,
+  UpdatedAt,
+} from "sequelize-typescript";
+import Class from "./class";
+import ReportCard from "./reportcard";
+import Course from "./course";
+import StudentCourse from "./studentcourse";
 
 @Table({
   timestamps: true,
@@ -42,4 +54,27 @@ export default class Student
 
   @DeletedAt
   deletedAt: Date;
+
+  // @HasOne(() => Class)
+  // class?: Class;
+  //========================= Many To Many =====================================
+  @BelongsToMany(() => Course, {
+    through: { model: () => StudentCourse },
+  })
+  courses!: Course[];
+  //=========================================================================
+
+  //========================= Many To One =====================================
+
+  @HasOne(() => Class, "studentId")
+  class: Class;
+  //=========================================================================
+
+  //========================= One To One =====================================
+
+  @HasOne(() => ReportCard, "studentId")
+  reportcard: ReportCard;
+  //=========================================================================
+  // @HasMany(() => Token, "userId")
+  // tokens: Token[];
 }

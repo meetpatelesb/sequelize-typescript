@@ -6,6 +6,7 @@ import {
 } from "@/interfaces/course.interface";
 
 import {
+  BelongsToMany,
   Column,
   CreatedAt,
   DeletedAt,
@@ -13,6 +14,8 @@ import {
   Table,
   UpdatedAt,
 } from "sequelize-typescript";
+import Student from "./student";
+import StudentCourse from "./studentcourse";
 
 @Table({
   timestamps: true,
@@ -34,7 +37,6 @@ export default class Course
   @Column
   name: string;
 
-
   @Column
   duration: string;
 
@@ -46,4 +48,12 @@ export default class Course
 
   @DeletedAt
   deletedAt: Date;
+
+  //========================= Many To One =====================================
+
+  @BelongsToMany(() => Student, {
+    through: { model: () => StudentCourse },
+  })
+  students!: Student[];
+  //==========================================================================
 }

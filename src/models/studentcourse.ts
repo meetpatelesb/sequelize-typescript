@@ -6,6 +6,7 @@ import {
 } from "@/interfaces/studentCourse.interface";
 
 import {
+  BelongsTo,
   Column,
   CreatedAt,
   DeletedAt,
@@ -26,6 +27,8 @@ export default class StudentCourse
   extends Model<studentCourseinterface, studentCourseCreationinterface>
   implements studentCourseinterface
 {
+
+//========================= Many To Many =====================================
   @Column({
     primaryKey: true,
     autoIncrement: true,
@@ -34,14 +37,25 @@ export default class StudentCourse
   })
   id: number;
 
-
   @ForeignKey(() => Course)
   @Column
   courseId!: number;
 
+  // @BelongsTo(() => Course, {
+  //   foreignKey: "courseId",
+  // })
+  // course?: Course;
+
+  
+
   @ForeignKey(() => Student)
   @Column
   studentId!: number;
+
+  // @BelongsTo(() => Student, {
+  //   foreignKey: "studentId",
+  // })
+  // student?: Student;
 
   @CreatedAt
   createdAt: Date;

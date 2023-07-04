@@ -8,7 +8,7 @@ export const StudentDetails = async (
   res: Response
 ): Promise<any> => {
   try {
-    const data = await Student.create(req.body);
+    const data = await Student.bulkCreate(req.body);
     res.send(data);
     console.log(data);
   } catch (error) {
