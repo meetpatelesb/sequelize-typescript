@@ -10,6 +10,7 @@ import {
   Column,
   CreatedAt,
   DeletedAt,
+  HasMany,
   HasOne,
   Model,
   Table,
@@ -19,6 +20,8 @@ import Class from "./class";
 import ReportCard from "./reportcard";
 import Course from "./course";
 import StudentCourse from "./studentcourse";
+import Attendance from "./attendance";
+import Complaint from "./complaint";
 
 @Table({
   timestamps: true,
@@ -74,6 +77,23 @@ export default class Student
 
   @HasOne(() => ReportCard, "studentId")
   reportcard: ReportCard;
+  //=========================================================================
+
+  //========================= Many  To Many Polymorphic =====================================
+
+  @HasMany(() => Attendance, {
+    foreignKey: "attendanceId",
+    constraints: false,
+  })
+  attendances?: Attendance;
+  //=========================================================================
+  //========================= Many  To Many Polymorphic =====================================
+
+  @HasMany(() => Complaint, {
+    foreignKey: "complaintId",
+    constraints: false,
+  })
+  complaint?: Complaint;
   //=========================================================================
   // @HasMany(() => Token, "userId")
   // tokens: Token[];

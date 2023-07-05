@@ -11,6 +11,8 @@ import teacher from "./routes/teacher.route";
 import course from "./routes/course.route";
 import classes from "./routes/class.route";
 import reportcard from "./routes/reportcard.route";
+import complaint from "./routes/complaint.route";
+import attendance from "./routes/attendance.route";
 import db from "./models";
 const route = express.Router();
 
@@ -22,8 +24,10 @@ const main = async () => {
   app.use("/students", student);
   app.use("/teacher", teacher);
   app.use("/course", course);
-  app.use("/class",classes);
-    app.use("/reportcard", reportcard);
+  app.use("/class", classes);
+  app.use("/reportcard", reportcard);
+  app.use("/complaint", complaint);
+  app.use("/attendance", attendance);
 };
 
 main();

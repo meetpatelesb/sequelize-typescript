@@ -9,10 +9,13 @@ import {
   Column,
   CreatedAt,
   DeletedAt,
+  HasMany,
   Model,
   Table,
   UpdatedAt,
 } from "sequelize-typescript";
+import Attendance from "./attendance";
+import Complaint from "./complaint";
 
 @Table({
   timestamps: true,
@@ -52,4 +55,22 @@ export default class Teacher
 
   @DeletedAt
   deletedAt: Date;
+
+  //========================= Many  To Many Polymorphic =====================================
+
+  @HasMany(() => Attendance, {
+    foreignKey: "attendanceId",
+    constraints: false,
+  })
+  attendances?: Attendance;
+  //=========================================================================
+
+  //========================= Many  To Many Polymorphic =====================================
+
+  @HasMany(() => Complaint, {
+    foreignKey: "complaintId",
+    constraints: false,
+  })
+  complaint?: Complaint;
+  //=========================================================================
 }
