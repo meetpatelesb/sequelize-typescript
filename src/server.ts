@@ -16,8 +16,8 @@ import attendance from "./routes/attendance.route";
 import db from "./models";
 const route = express.Router();
 
-//var cors = require("cors");
-//app.use(cors());
+var cors = require("cors");
+app.use(cors());
 
 const main = async () => {
   await db.authenticate();

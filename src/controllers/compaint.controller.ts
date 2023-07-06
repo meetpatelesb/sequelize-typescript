@@ -10,16 +10,16 @@ export const ComplaintsDetails = async (
   res: Response
 ): Promise<any> => {
   try {
-    const data = await Complaint.findAll({
+    const { count, rows } = await Complaint.findAndCountAll({
       include: {
         model: Student,
       },
-      where: {
-        complaintType:"STUDENT"
-      },
+      // where: {
+      //   complaintType: "STUDENT",
+      // },
     });
-    res.send(data);
-    console.log(data);
+    
+     res.json({ count, rows });
   } catch (error) {
     console.log(error);
   }

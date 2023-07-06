@@ -28,15 +28,14 @@ export const CourseStudentDetails = async (
   res: Response
 ): Promise<any> => {
   try {
-    const data = await Course.findAll({
+    const { count, rows } = await Course.findAndCountAll({
       attributes: ["name", "duration"],
       include: {
         model: Student,
         attributes: ["firstname", "lastname"],
       },
     });
-    res.send(data);
-    console.log(data);
+   res.json({ count, rows });
   } catch (error) {
     console.log(error);
   }
