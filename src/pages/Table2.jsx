@@ -180,6 +180,7 @@ const Table2 = () => {
         subHeaderAlign="right"
         subHeaderWrap
         actions={<button className="btn btn-md btn-info">Export</button>}
+        // 
       />
     </>
   );
