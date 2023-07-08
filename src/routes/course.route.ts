@@ -3,6 +3,6 @@ import { CourseDetails, CourseStudentDetails } from "../controllers/course.contr
 const router = Router();
 
 router.post("/add", CourseDetails);
-router.get("/show", CourseStudentDetails);
+router.post("/show", CourseStudentDetails);
 
 export default router;

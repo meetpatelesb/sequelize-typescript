@@ -5,7 +5,7 @@ import {
 } from "../controllers/compaint.controller";
 const router = Router();
 
-router.get("/show", ComplaintsDetails);
+router.post("/show", ComplaintsDetails);
 // router.get("/show", CourseStudentDetails);
 
 export default router;
