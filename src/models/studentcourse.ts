@@ -27,8 +27,7 @@ export default class StudentCourse
   extends Model<studentCourseinterface, studentCourseCreationinterface>
   implements studentCourseinterface
 {
-
-//========================= Many To Many =====================================
+  //========================= Many To Many =====================================
   @Column({
     primaryKey: true,
     autoIncrement: true,
@@ -41,22 +40,23 @@ export default class StudentCourse
   @Column
   courseId!: number;
 
-  // @BelongsTo(() => Course, {
-  //   foreignKey: "courseId",
-  // })
-  // course?: Course;
-
-  
+  //========================= Many To Many (for  studentCourse  to course relation define) =====================================
+  @BelongsTo(() => Course, {
+    foreignKey: "courseId",
+  })
+  course?: Course;
+  //===========================================================================================================================
 
   @ForeignKey(() => Student)
   @Column
   studentId!: number;
 
-  // @BelongsTo(() => Student, {
-  //   foreignKey: "studentId",
-  // })
-  // student?: Student;
-
+  //========================= Many To Many (for  studentCourse  to student  relation define) =====================================
+  @BelongsTo(() => Student, {
+    foreignKey: "studentId",
+  })
+  student?: Student;
+  //===========================================================================================================================
   @CreatedAt
   createdAt: Date;
 

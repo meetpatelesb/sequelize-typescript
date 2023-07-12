@@ -10,6 +10,7 @@ import {
   Column,
   CreatedAt,
   DeletedAt,
+  HasMany,
   Model,
   Table,
   UpdatedAt,
@@ -56,4 +57,13 @@ export default class Course
   })
   students!: Student[];
   //==========================================================================
+
+  //========================= Many To Many (for course to studentCourse relation define) =====================================
+
+  @HasMany(() => StudentCourse, {
+    foreignKey: "courseId",
+    constraints: false,
+  })
+  studentCourse?: StudentCourse;
+  //=========================================================================
 }

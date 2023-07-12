@@ -67,6 +67,15 @@ export default class Student
   courses!: Course[];
   //=========================================================================
 
+  //========================= Many To Many (for student to studentCourse relation define) =====================================
+
+  @HasMany(() => StudentCourse, {
+    foreignKey: "studentId",
+    constraints: false,
+  })
+  studentCourse?: StudentCourse;
+  //=========================================================================
+
   //========================= Many To One =====================================
 
   @HasOne(() => Class, "studentId")
