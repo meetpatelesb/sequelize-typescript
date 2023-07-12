@@ -6,36 +6,32 @@ import { Option } from "../utils/constant";
 // A super simple expandable component.
 // const ExpandedComponent = ({ data }) => <pre>{JSON.stringify({data:data?.capital}, null, 15)}</pre>;
 
-const Table2 = () => {
+const Table3 = () => {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   // total records
-  const [pageNo, setPageNo] = useState(3);
-  const [recordPerPage, setRecordPerPage] = useState();
+  const [pageNo, setPageNo] = useState(2);
+  const [recordPerPage, setRecordPerPage] = useState(4);
   const [sortDirection, setSortDirection] = useState("asc");
-  const [sortField, setSortField] = useState("name");
+  const [sortField, setSortField] = useState("firstname");
   const [search, setSearch] = useState("");
-  const [tName, setTable] = useState("Course");
   console.log(data);
-  // const [search, setSearch] = useState("");
   const [filterData, setFilteredData] = useState([]);
 
   useEffect(() => {
     getData();
-  }, [page, search, recordPerPage, sortDirection, sortField, tName]);
+  }, [page, search, recordPerPage, sortDirection, sortField]);
 
   const getData = async () => {
     try {
-      console.log(`http://localhost:8021/course/show`);
-      const res = await axios.post(`http://localhost:8021/course/show/`, {
+      const res = await axios.post(`http://localhost:8021/course/showdata/`, {
         data: {
           page,
           recordPerPage,
           sortDirection,
           sortField,
           search,
-          tName: tName,
         },
       });
       const courseData = await res.data;
@@ -48,12 +44,6 @@ const Table2 = () => {
       console.log(error);
     }
   };
-  const setDataTable = (value) => {
-    console.log(value + "546556565469842132151");
-    setTable(value);
-  };
-  console.log(tName);
-
   const handleSort = async (column, sortDirection) => {
     console.log(sortDirection, column.sortField);
     setSortDirection(sortDirection);
@@ -79,76 +69,44 @@ const Table2 = () => {
 
   const CourseColumns = [
     {
-      name: "Subject",
-      selector: (row) => row.name,
+      name: "Id",
+      selector: (row) => row.id,
       sortable: true,
-      sortField: "subject",
+      sortField: "id",
+    },
+    {
+      name: "Student Name",
+      selector: (row) => row.student.firstname,
+      sortable: true,
+      sortField: "firstname",
+    },
+    {
+      name: "Student Last Name",
+      selector: (row) => row.student.lastname,
+      sortable: true,
+      sortField: "lastname",
+    },
+    {
+      name: "Phone No.",
+      selector: (row) => row.student.phone,
+      sortable: true,
+      sortField: "phone",
+    },
+    {
+      name: "Course",
+      selector: (row) => row.course.name,
+      sortable: true,
+      sortField: "course",
     },
     {
       name: "Duration",
-      selector: (row) => row.duration,
+      selector: (row) => row.course.duration,
       sortable: true,
       sortField: "duration",
     },
-    {
-      name: "Name",
-      selector: (row) =>
-        row.students.map((rows, index) => rows.firstname + " "),
-      sortable: true,
-      sortField: "name",
-    },
   ];
-
-  // const NameColumns = [
-  //   {
-  //     name: " Name",
-  //     selector: (row) => row.firstname,
-  //     sortable: true,
-  //     sortField: "name",
-  //   },
-  //   {
-  //     name: " last name",
-  //     selector: (row) => row.lastname,
-  //     sortable: true,
-  //     sortField: "lname",
-  //   },
-  //   {
-  //     name: "subject",
-  //     selector: (row) =>
-  //       row.courses.map(
-  //         // (rows, index) => "( " + rows.name + "  " + rows.duration  +" )  "
-  //         (rows, index) => rows.name + "   "
-  //       ),
-  //     sortable: true,
-  //     sortField: "subject",
-  //   },
-  // ];
-
-  // if (tName === "Student") {
-  //   var column = NameColumns;
-  // } else if (tName === "Course") {
-  //   var column = CourseColumns;
-  // } else {
-  //   var column = CourseColumns;
-  // }
   return (
     <>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <div>
-        Table:
-        <select onClick={(e) => setDataTable(e.target.value)}>
-          {Option.map((value, index) => {
-            return (
-              <>
-                <option value={value.value}>{value.title}</option>
-              </>
-            );
-          })}
-        </select>
-      </div>
       <DataTable
         title="User Data"
         columns={CourseColumns}
@@ -157,7 +115,7 @@ const Table2 = () => {
         pagination
         paginationServer
         paginationTotalRows={pageNo}
-        paginationRowsPerPageOptions={[1, 2, 3]}
+        paginationRowsPerPageOptions={[3,5,7,10]}
         onChangeRowsPerPage={handlePerRowsChange}
         onChangePage={handlePageChange}
         dense
@@ -179,11 +137,9 @@ const Table2 = () => {
         }
         subHeaderAlign="right"
         subHeaderWrap
-        actions={<button className="btn btn-md btn-info">Export</button>}
-        //
-      />
+       />
     </>
   );
 };
 
-export default Table2;
+export default Table3;
